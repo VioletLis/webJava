@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <title>New Reader</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+        <div>
+            <a href="/" class="navbar-brand">Library</a>
+        </div>
+        <ul class="navbar-nav">
+            <li><a href="/readers" class="nav-link">Readers</a></li>
+        </ul>
+    </nav>
+</header>
+<br>
+<div class="container col-md-5">
+    <div class="card">
+        <div class="card-body">
+            <!--            <p th:if="${reader != null}">-->
+            <!--                <form action="edit" method="post" modelAttribute="reader"></form>-->
+            <!--            </p>-->
+            <!--            <p th:if="${reader == null}">-->
+            <!--            <form action="add" method="post" modelAttribute="reader"></form>-->
+            </p>
+
+            <caption>
+                <h2>
+                        <span th:if="${reader.getName() != null}">
+                            Edit Reader
+                        </span>
+                    <span th:if="${reader.getName() == null}">
+                            Add Reader
+                        </span>
+                </h2>
+            </caption>
+                <form action="/saveReader" modelAttribute="${reader}" method="post" >
+                    <fieldset class="form-group">
+                        <label>ID</label>
+                        <input readonly type="number" th:value="${reader.id}" name="id" class="form-control"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Name</label> <input th:required th:value="${reader.name}" th:name="name" class="form-control" />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Surname</label>
+                        <input th:required th:value="${reader.surname}" th:name="surname" class="form-control"/>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Birthdate</label>
+                        <input type="date" th:required th:value="${reader.birthdate}" th:name="birthdate" class="form-control"/>
+                    </fieldset>
+                    <!--                        <button>Save</button>-->
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                </form>
+            </div>
+    </div>
+</div>
+</body>
+</html>

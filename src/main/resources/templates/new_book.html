@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <head>
+        <title>New Book</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+        <div>
+            <a href="/" class="navbar-brand">Library</a>
+        </div>
+    </nav>
+</header>
+<br>
+<div class="container col-md-5">
+    <div class="card">
+        <div class="card-body">
+            <caption>
+                <h2>
+                        Add new book
+                </h2>
+            </caption>
+            <form action="/saveBook" modelAttribute="${book}" method="post" >
+                <fieldset class="form-group">
+                    <label>ISBN</label> <input type="number" required minlength="13" maxlength="13" th:path="${book.isbn}" name="isbn" class="form-control"/>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Title</label> <input required th:path="${book.title}" name="title" class="form-control" />
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Author</label>
+                    <input required th:path="${book.author}" name="author" class="form-control"/>
+                </fieldset>
+<!--                        <button>Save</button>-->
+                    <input type="submit" class="btn btn-primary" value="Save">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

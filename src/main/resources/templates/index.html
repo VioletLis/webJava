@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01
+    Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!--<html xmlns:th="http://thymeleaf.org">-->
+<head>
+    <title>Library</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+        <div>
+            <a href="/" class="navbar-brand">Library</a>
+        </div>
+        <div>
+            <a href="/new_reader">New Reader</a> &emsp;
+        </div>
+    </nav>
+</header>
+<div align="center">
+    <h2>Library</h2>
+    <form method="get" action="searchBook">
+        <input type="text" name="keyword" />
+        <input type="submit" value="Search" />
+    </form>
+    <h3><a href="/readers">Readers</a></h3>
+    <h3><a href="/new_book">New Book</a></h3>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Current reader</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="item : ${listBooks}" var="book">
+                <td th:text="${item.getIsbn()}"></td>
+                <td th:text="${item.getTitle()}"></td>
+                <td th:text="${item.getAuthor()}"></td>
+                <td th:if="${item.getReader()}!=null" th:text="${item.getReader().getSurname()}+' '+${item.getReader().getName()}"></td>
+            <td th:if="${item.getReader()}==null" th:text="null"></td>
+                <td>
+                    <span th:if="${item.getReader()}==null">
+                        <a th:href="@{/lend/?isbn={isbn}(isbn=${item.getIsbn()})}">Lend</a>
+                    </span>
+                    <span th:if="${item.getReader()}!=null">
+                        <a th:href="@{/getBack/?isbn={isbn}(isbn=${item.getIsbn()})}">Get Back</a>
+                    </span>
+                    <a th:href="@{/deleteBook/?isbn={isbn}(isbn=${item.getIsbn()})}">Delete</a>
+                </td>
+        </tr>
+        </trth:each>
+    </table>
+</div>
+</body>
+</html>
